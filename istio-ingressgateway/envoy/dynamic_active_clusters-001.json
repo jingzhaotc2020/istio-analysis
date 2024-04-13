@@ -2,7 +2,7 @@
     "configs": [
      {
       "@type": "type.googleapis.com/envoy.admin.v3.ClustersConfigDump.DynamicCluster",
-      "version_info": "2024-04-13T09:22:21Z/14",
+      "version_info": "2024-04-13T09:25:33Z/17",
       "cluster": {
        "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
        "name": "outbound|8080||balanced.test.svc.cluster.local",
@@ -142,7 +142,7 @@
         }
        ]
       },
-      "last_updated": "2024-04-13T09:22:21.685Z"
+      "last_updated": "2024-04-13T09:25:33.054Z"
      }
     ]
    }
