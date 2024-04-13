@@ -1,0 +1,152 @@
+{
+    "configs": [
+        {
+            "@type": "type.googleapis.com/envoy.admin.v3.ClustersConfigDump",
+            "dynamic_active_clusters": [
+                {
+                    "cluster": {
+                      "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
+                      "circuit_breakers": {
+                        "thresholds": [
+                          {
+                            "max_connections": "4294967295",
+                            "max_pending_requests": "4294967295",
+                            "max_requests": "4294967295",
+                            "max_retries": "4294967295",
+                            "track_remaining": true
+                          }
+                        ]
+                      },
+                      "common_lb_config": {
+                        "locality_weighted_lb_config": {}
+                      },
+                      "connect_timeout": "10s",
+                      "eds_cluster_config": {
+                        "eds_config": {
+                          "ads": {},
+                          "initial_fetch_timeout": "0s",
+                          "resource_api_version": "V3"
+                        },
+                        "service_name": "outbound|9090||balanced.test.svc.cluster.local"
+                      },
+                      "filters": [
+                        {
+                          "name": "istio.metadata_exchange",
+                          "typed_config": {
+                            "@type": "type.googleapis.com/udpa.type.v1.TypedStruct",
+                            "type_url": "type.googleapis.com/envoy.tcp.metadataexchange.config.MetadataExchange",
+                            "value": {
+                              "enable_discovery": true,
+                              "protocol": "istio-peer-exchange"
+                            }
+                          }
+                        }
+                      ],
+                      "lb_policy": "LEAST_REQUEST",
+                      "metadata": {
+                        "filter_metadata": {
+                          "istio": {
+                            "services": [
+                              {
+                                "host": "balanced.test.svc.cluster.local",
+                                "name": "balanced",
+                                "namespace": "test"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "name": "outbound|9090||balanced.test.svc.cluster.local",
+                      "transport_socket_matches": [
+                        {
+                          "match": {
+                            "tlsMode": "istio"
+                          },
+                          "name": "tlsMode-istio",
+                          "transport_socket": {
+                            "name": "envoy.transport_sockets.tls",
+                            "typed_config": {
+                              "@type": "type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext",
+                              "common_tls_context": {
+                                "alpn_protocols": [
+                                  "istio",
+                                  "istio-peer-exchange"
+                                ],
+                                "combined_validation_context": {
+                                  "default_validation_context": {
+                                    "match_subject_alt_names": [
+                                      {
+                                        "exact": "spiffe://cluster.local/ns/test/sa/default"
+                                      }
+                                    ]
+                                  },
+                                  "validation_context_sds_secret_config": {
+                                    "name": "ROOTCA",
+                                    "sds_config": {
+                                      "api_config_source": {
+                                        "api_type": "GRPC",
+                                        "grpc_services": [
+                                          {
+                                            "envoy_grpc": {
+                                              "cluster_name": "sds-grpc"
+                                            }
+                                          }
+                                        ],
+                                        "set_node_on_first_message_only": true,
+                                        "transport_api_version": "V3"
+                                      },
+                                      "initial_fetch_timeout": "0s",
+                                      "resource_api_version": "V3"
+                                    }
+                                  }
+                                },
+                                "tls_certificate_sds_secret_configs": [
+                                  {
+                                    "name": "default",
+                                    "sds_config": {
+                                      "api_config_source": {
+                                        "api_type": "GRPC",
+                                        "grpc_services": [
+                                          {
+                                            "envoy_grpc": {
+                                              "cluster_name": "sds-grpc"
+                                            }
+                                          }
+                                        ],
+                                        "set_node_on_first_message_only": true,
+                                        "transport_api_version": "V3"
+                                      },
+                                      "initial_fetch_timeout": "0s",
+                                      "resource_api_version": "V3"
+                                    }
+                                  }
+                                ],
+                                "tls_params": {
+                                  "tls_maximum_protocol_version": "TLSv1_3",
+                                  "tls_minimum_protocol_version": "TLSv1_2"
+                                }
+                              },
+                              "sni": "outbound_.9090_._.balanced.test.svc.cluster.local"
+                            }
+                          }
+                        },
+                        {
+                          "match": {},
+                          "name": "tlsMode-disabled",
+                          "transport_socket": {
+                            "name": "envoy.transport_sockets.raw_buffer",
+                            "typed_config": {
+                              "@type": "type.googleapis.com/envoy.extensions.transport_sockets.raw_buffer.v3.RawBuffer"
+                            }
+                          }
+                        }
+                      ],
+                      "type": "EDS"
+                    },
+                    "last_updated": "2024-04-13T10:29:10.819Z",
+                    "version_info": "2024-04-13T10:29:10Z/47"
+                  },
+            ]
+        }
+    ]
+}

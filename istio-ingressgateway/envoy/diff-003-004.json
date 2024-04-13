@@ -1,0 +1,68 @@
+{
+    "configs": [
+      {
+        "@type": "type.googleapis.com/envoy.admin.v3.RoutesConfigDump",
+        "dynamic_route_configs": [
+          {
+            "last_updated": "2024-04-13T11:10:33.864Z",
+            "route_config": {
+              "@type": "type.googleapis.com/envoy.config.route.v3.RouteConfiguration",
+              "ignore_port_in_host_matching": true,
+              "max_direct_response_body_size_bytes": 1048576,
+              "name": "http.8080",
+              "validate_clusters": false,
+              "virtual_hosts": [
+                {
+                  "domains": [
+                    "*"
+                  ],
+                  "include_request_attempt_count": true,
+                  "name": "*:8080",
+                  "routes": [
+                    {
+                      "decorator": {
+                        "operation": "balanced.test.svc.cluster.local:9090/*"
+                      },
+                      "match": {
+                        "prefix": "/"
+                      },
+                      "metadata": {
+                        "filter_metadata": {
+                          "istio": {
+                            "config": "/apis/networking.istio.io/v1alpha3/namespaces/test/virtual-service/balancedvirtualservice"
+                          }
+                        }
+                      },
+                      "route": {
+                        "cluster": "outbound|9090||balanced.test.svc.cluster.local",
+                        "max_grpc_timeout": "0s",
+                        "retry_policy": {
+                          "host_selection_retry_max_attempts": "5",
+                          "num_retries": 2,
+                          "retriable_status_codes": [
+                            503
+                          ],
+                          "retry_host_predicate": [
+                            {
+                              "name": "envoy.retry_host_predicates.previous_hosts",
+                              "typed_config": {
+                                "@type": "type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate"
+                              }
+                            }
+                          ],
+                          "retry_on": "connect-failure,refused-stream,unavailable,cancelled,retriable-status-codes"
+                        },
+                        "timeout": "0s"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "version_info": "2024-04-13T11:10:33Z/52"
+          }
+        ]
+      }
+    ]
+  }
+  
