@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-end
+  labels:
+    app: fastapi-end
+    service: fastapi-end
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: http
+  selector:
+    app: fastapi-end
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-end
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-end
+  template:
+    metadata:
+      labels:
+        app: fastapi-end
+    spec:
+      containers:
+      - name: fastapi-end
+        image: grs2docker2hub/istio-tracing-test01
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8000
+
