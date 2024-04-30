@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+ <!-- 直接这样用，没有cors的效果-->
+<!-- <body> 
+    <h1>html-site</h1>
+    <img src="http://192.168.1.38:9090/cat.jpeg" />  
+</body> -->
+
+
+
+<body>
+    <h1>html-site</h1>
+    <script src="https://unpkg.com/axios"></script>
+    <script>
+      axios({
+        method: 'GET',
+        url: 'http://127.0.0.1:9090/cat.jpeg',   
+        responseType: 'arraybuffer'
+      })
+      .then(res => { console.log(res) })
+    </script>
+</body>
+</html>
