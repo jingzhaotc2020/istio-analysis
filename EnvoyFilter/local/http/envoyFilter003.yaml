@@ -31,7 +31,7 @@ spec:
           vhost:
             name: "inbound|http|80"
             route:
-              action: ANY
+              action: ANY  #所有的路由活动，包括REDIRECT、DIRECT_RESPONSE和普通路由
       patch:
         operation: MERGE
         value:
