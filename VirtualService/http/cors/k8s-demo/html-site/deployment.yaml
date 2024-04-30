@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: html-site
+  labels:
+    app: html-site
+spec:
+  selector:
+    matchLabels:
+      app: html-site
+  template:
+    metadata:
+      labels:
+        app: html-site
+    spec:
+      containers:
+      - image: self/html-site
+        imagePullPolicy: IfNotPresent
+        name: html-site
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: html-site
+  labels:
+    app: html-site
+spec:
+  selector:
+    app: html-site
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    name: http

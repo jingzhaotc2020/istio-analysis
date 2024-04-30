@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-site
+  labels:
+    app: image-site
+spec:
+  selector:
+    matchLabels:
+      app: image-site
+  template:
+    metadata:
+      labels:
+        app: image-site
+    spec:
+      containers:
+      - image: self/image-site
+        imagePullPolicy: IfNotPresent
+        name: image-site
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-site
+  labels:
+    app: image-site
+spec:
+  selector:
+    app: image-site
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    name: http

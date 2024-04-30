@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: image-site-virtualservice
+spec:
+  hosts:
+  - "image-site.default"
+  gateways:
+  - test-gateway
+  http:
+  - corsPolicy:
+      maxAge: 10s
+      allowCredentials: true
+      allowOrigins: 
+        - prefix: http://html-site
+      allowMethods:
+        - GET
+    route:
+    - destination:
+        host: image-site
+        port:
+          number: 80
